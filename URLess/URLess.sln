@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "URLess", "URLess\URLess.csproj", "{208B3165-7B98-4DE8-A0A1-3575A7FDEC81}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "URLess.Service", "URLess.Service\URLess.Service.csproj", "{208B3165-7B98-4DE8-A0A1-3575A7FDEC81}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "URLess.IntegrationTests", "URLess.IntegrationTests\URLess.IntegrationTests.csproj", "{4AFC3B7B-E9D9-4E00-80D1-0FB4649A7E52}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -12,5 +14,9 @@ Global
 		{208B3165-7B98-4DE8-A0A1-3575A7FDEC81}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{208B3165-7B98-4DE8-A0A1-3575A7FDEC81}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{208B3165-7B98-4DE8-A0A1-3575A7FDEC81}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4AFC3B7B-E9D9-4E00-80D1-0FB4649A7E52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4AFC3B7B-E9D9-4E00-80D1-0FB4649A7E52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4AFC3B7B-E9D9-4E00-80D1-0FB4649A7E52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4AFC3B7B-E9D9-4E00-80D1-0FB4649A7E52}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

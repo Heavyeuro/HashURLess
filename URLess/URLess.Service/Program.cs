@@ -5,7 +5,7 @@ var app = builder.Build();
 
 app.MapGet("/{url}", async (HttpContext context, string url) =>
 {
-    bool urlExists = false; 
+    var urlExists = false;
 
     if (urlExists)
     {
@@ -22,15 +22,15 @@ app.MapPost("/", async (HttpContext context) =>
 {
     using var reader = new StreamReader(context.Request.Body);
     var requestBody = await reader.ReadToEndAsync();
-        
+
     var jsonDocument = JsonDocument.Parse(requestBody);
     var root = jsonDocument.RootElement;
-        
+
     if (root.TryGetProperty("url", out var urlProperty))
     {
-        string originalUrl = urlProperty.GetString();
+        var originalUrl = urlProperty.GetString();
 
-        string shortenedUrl = "handledValue";//ShortenUrl(originalUrl);
+        var shortenedUrl = "handledValue"; //ShortenUrl(originalUrl);
 
         var responseJson = new
         {
