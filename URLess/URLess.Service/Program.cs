@@ -21,15 +21,16 @@ app.MapGet("/{url}", async (HttpContext context,
 {
     var initialUrl = await urlManager.GetInitialUrl(url);
 
-    if (string.IsNullOrEmpty(initialUrl))
+    if (!string.IsNullOrEmpty(initialUrl))
     {
         context.Response.StatusCode = StatusCodes.Status301MovedPermanently;
-        context.Response.Headers.Add("Location", "https://example.com/new-url");
+        context.Response.Headers.Add("Location", initialUrl);
+
+        return Task.CompletedTask;
     }
-    else
-    {
-        context.Response.StatusCode = StatusCodes.Status404NotFound;
-    }
+
+    context.Response.StatusCode = StatusCodes.Status404NotFound;
+    return Task.CompletedTask;
 });
 
 app.MapPost("/", async (HttpContext context, [FromServices] IUrlManager urlManager) =>

@@ -31,7 +31,7 @@ public class UrlEntityRepository : IUrlEntityRepository
 
     public async Task UpsertByInitialUrlAsync(UrlEntity entity)
     {
-        var filterSearch = Builders<UrlEntityDal>.Filter.Eq(x => x.HashedPath, entity.HashedPath);
+        var filterSearch = Builders<UrlEntityDal>.Filter.Eq(x => x.InitialUrl, entity.InitialUrl);
         var entityFound = await _collection.Find(filterSearch).FirstOrDefaultAsync();
 
         if (entityFound != null)
