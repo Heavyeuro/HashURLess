@@ -34,7 +34,7 @@ namespace URLess.IntegrationTests
         public async Task Test_Get_UrlExists_Returns_Redirect()
         {
             // Arrange
-            var url = "/existing-url";
+            var url = "https://example.com";
 
             // Act
             var response = await _client.GetAsync(url);

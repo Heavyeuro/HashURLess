@@ -1,13 +1,18 @@
+using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
+using URLess.Core.Managers;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddTransient<IUrlManager, UrlManager>();
+
 var app = builder.Build();
 
-app.MapGet("/{url}", async (HttpContext context, string url) =>
+app.MapGet("/{url}", async (HttpContext context,
+    [FromServices] IUrlManager urlManager, [FromRoute] string url) =>
 {
-    var urlExists = false;
+    var initialUrl = await urlManager.GetInitialUrl(url);
 
-    if (urlExists)
+    if (string.IsNullOrEmpty(initialUrl))
     {
         context.Response.StatusCode = StatusCodes.Status301MovedPermanently;
         context.Response.Headers.Add("Location", "https://example.com/new-url");
@@ -18,10 +23,11 @@ app.MapGet("/{url}", async (HttpContext context, string url) =>
     }
 });
 
-app.MapPost("/", async (HttpContext context) =>
+app.MapPost("/", async (HttpContext context, [FromServices] IUrlManager urlManager) =>
 {
     using var reader = new StreamReader(context.Request.Body);
     var requestBody = await reader.ReadToEndAsync();
+    var request = context.Request;
 
     var jsonDocument = JsonDocument.Parse(requestBody);
     var root = jsonDocument.RootElement;
@@ -30,11 +36,11 @@ app.MapPost("/", async (HttpContext context) =>
     {
         var originalUrl = urlProperty.GetString();
 
-        var shortenedUrl = "handledValue"; //ShortenUrl(originalUrl);
+        var shortenedPath = await urlManager.GetShortenedPath(originalUrl);
 
         var responseJson = new
         {
-            url = shortenedUrl,
+            url = $"{request.Scheme}://{request.Host}/{shortenedPath}",
             originalURL = originalUrl
         };
 

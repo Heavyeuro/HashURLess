@@ -1,8 +1,19 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "URLess.Service", "URLess.Service\URLess.Service.csproj", "{208B3165-7B98-4DE8-A0A1-3575A7FDEC81}"
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34607.119
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "URLess.Service", "URLess.Service\URLess.Service.csproj", "{208B3165-7B98-4DE8-A0A1-3575A7FDEC81}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "URLess.IntegrationTests", "URLess.IntegrationTests\URLess.IntegrationTests.csproj", "{4AFC3B7B-E9D9-4E00-80D1-0FB4649A7E52}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "URLess.IntegrationTests", "URLess.IntegrationTests\URLess.IntegrationTests.csproj", "{4AFC3B7B-E9D9-4E00-80D1-0FB4649A7E52}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "URLess.Core", "URLess.Core\URLess.Core.csproj", "{2B5ECAD2-4C5C-47F3-BFA5-42B683F5C466}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "URLess.Tests", "URLess.Tests\URLess.Tests.csproj", "{EDF3DD77-2082-49BA-B43E-D260819BDD6E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{DD0003E8-54AF-445E-8DC8-88E51A273B02}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "URLess.Domain", "URLess.Domain\URLess.Domain.csproj", "{D875DC21-2084-4B3B-BEA2-7DBF7EBBD7DE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,5 +29,27 @@ Global
 		{4AFC3B7B-E9D9-4E00-80D1-0FB4649A7E52}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4AFC3B7B-E9D9-4E00-80D1-0FB4649A7E52}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4AFC3B7B-E9D9-4E00-80D1-0FB4649A7E52}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B5ECAD2-4C5C-47F3-BFA5-42B683F5C466}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B5ECAD2-4C5C-47F3-BFA5-42B683F5C466}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B5ECAD2-4C5C-47F3-BFA5-42B683F5C466}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B5ECAD2-4C5C-47F3-BFA5-42B683F5C466}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EDF3DD77-2082-49BA-B43E-D260819BDD6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDF3DD77-2082-49BA-B43E-D260819BDD6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDF3DD77-2082-49BA-B43E-D260819BDD6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDF3DD77-2082-49BA-B43E-D260819BDD6E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D875DC21-2084-4B3B-BEA2-7DBF7EBBD7DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D875DC21-2084-4B3B-BEA2-7DBF7EBBD7DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D875DC21-2084-4B3B-BEA2-7DBF7EBBD7DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D875DC21-2084-4B3B-BEA2-7DBF7EBBD7DE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4AFC3B7B-E9D9-4E00-80D1-0FB4649A7E52} = {DD0003E8-54AF-445E-8DC8-88E51A273B02}
+		{EDF3DD77-2082-49BA-B43E-D260819BDD6E} = {DD0003E8-54AF-445E-8DC8-88E51A273B02}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {27C7F009-93AD-4ADE-994A-309E6E0457B8}
 	EndGlobalSection
 EndGlobal
