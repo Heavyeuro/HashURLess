@@ -1,4 +1,5 @@
-﻿using System.Security.Cryptography;
+﻿using System;
+using System.Security.Cryptography;
 using System.Text;
 using URLess.DAL;
 using URLess.DAL.Repository;
@@ -21,7 +22,14 @@ public class UrlManager : IUrlManager
 
     public async Task<string> GetShortenedPath(string fullUrl)
     {
-        var shortenedPath = CalculateSHA1Base64(fullUrl);
+        string shortenedPath = "";
+        bool KeydoesNotExist = true;
+        while (KeydoesNotExist)
+        {
+            shortenedPath = CalculateSHA1Base64(fullUrl, !string.IsNullOrEmpty(shortenedPath) && KeydoesNotExist);
+            var hashedValue = await _urlEntityRepository.GetByHashedPathAsync(shortenedPath);
+            KeydoesNotExist = !string.IsNullOrWhiteSpace(hashedValue);
+        }
 
         var urlEntity = new Domain.UrlEntity { InitialUrl = fullUrl, HashedPath = shortenedPath };
         await _urlEntityRepository.UpsertByInitialUrlAsync(urlEntity);
@@ -29,12 +37,23 @@ public class UrlManager : IUrlManager
         return shortenedPath;
     }
 
-    private static string CalculateSHA1Base64(string input)
+    private static string CalculateSHA1Base64(string input, bool isCollision = false)
     {
-        using var sha1 = SHA1.Create();
+        Random random = new Random();
+        using (SHA1 sha1 = SHA1.Create())
+        {
+            byte[] inputBytes = Encoding.UTF8.GetBytes(input);
 
-        byte[] hashBytes = sha1.ComputeHash(Encoding.UTF8.GetBytes(input));
-        string base64String = Convert.ToBase64String(hashBytes);
-        return base64String.Substring(0, Math.Min(base64String.Length, 6));
+            if (isCollision)
+            {
+                int indexToAlter = random.Next(0, inputBytes.Length);
+                byte randomByte = (byte)random.Next(0, 256);
+                inputBytes[indexToAlter] = randomByte;
+            }
+
+            byte[] hashBytes = sha1.ComputeHash(inputBytes);
+            string base64String = Convert.ToBase64String(hashBytes);
+            return base64String.Substring(0, Math.Min(base64String.Length, 6));
+        }
     }
 }

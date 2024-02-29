@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\URLess.DAL\URLess.DAL.csproj" />
     <ProjectReference Include="..\URLess.Domain\URLess.Domain.csproj" />
   </ItemGroup>
 

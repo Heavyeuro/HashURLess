@@ -2,9 +2,11 @@ using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 using URLess.Config;
 using URLess.Core.Managers;
+using URLess.DAL.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddTransient<IUrlManager, UrlManager>();
+builder.Services.AddTransient<IUrlEntityRepository, UrlEntityRepository>();
 
 MongoDbSettings mongoDbSettings = builder.Configuration.GetSection("MongoDbSettings").Get<MongoDbSettings>();
 builder.Services.AddMongoDb(mongoDbSettings);
