@@ -24,11 +24,13 @@ public class UrlManager : IUrlManager
     {
         string shortenedPath = "";
         bool KeydoesNotExist = true;
+
         while (KeydoesNotExist)
         {
-            shortenedPath = CalculateSHA1Base64(fullUrl, !string.IsNullOrEmpty(shortenedPath) && KeydoesNotExist);
-            var hashedValue = await _urlEntityRepository.GetByHashedPathAsync(shortenedPath);
-            KeydoesNotExist = !string.IsNullOrWhiteSpace(hashedValue);
+            (string hashedValue, bool? wasRotated) = await _urlEntityRepository.CheckHashExistanceAsync(fullUrl);
+            bool recalculateCache = !string.IsNullOrWhiteSpace(hashedValue) || (wasRotated ?? false);
+            shortenedPath = CalculateSHA1Base64(fullUrl, recalculateCache);
+            KeydoesNotExist = !string.IsNullOrEmpty(await _urlEntityRepository.GetByHashedPathAsync(shortenedPath));
         }
 
         var urlEntity = new Domain.UrlEntity { InitialUrl = fullUrl, HashedPath = shortenedPath };

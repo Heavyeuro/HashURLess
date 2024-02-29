@@ -1,4 +1,5 @@
 ﻿using MongoDB.Driver;
+using SharpCompress.Common;
 using URLess.DAL.Models;
 using URLess.Domain;
 
@@ -13,20 +14,20 @@ public class UrlEntityRepository : IUrlEntityRepository
         _collection = mongoCollection;
     }
 
-    public async Task<string> GetByInitialUrlAsync(string initialUrl)
-    {
-        var filter = Builders<UrlEntityDal>.Filter.Eq(x => x.InitialUrl, initialUrl);
-        var entity = await _collection.Find(filter).FirstOrDefaultAsync();
-
-        return entity?.HashedPath;
-    }
-
     public async Task<string> GetByHashedPathAsync(string hashedPath)
     {
         var filter = Builders<UrlEntityDal>.Filter.Eq(x => x.HashedPath, hashedPath);
         var entity = await _collection.Find(filter).FirstOrDefaultAsync();
 
         return entity?.InitialUrl;
+    }
+
+    public async Task<(string, bool?)> CheckHashExistanceAsync(string fullUrl)
+    {
+        var filterSearch = Builders<UrlEntityDal>.Filter.Eq(x => x.InitialUrl, fullUrl);
+        var entityFound = await _collection.Find(filterSearch).FirstOrDefaultAsync();
+
+        return (entityFound?.InitialUrl, entityFound?.WasRotated);
     }
 
     public async Task UpsertByInitialUrlAsync(UrlEntity entity)
@@ -38,6 +39,7 @@ public class UrlEntityRepository : IUrlEntityRepository
         {
             var filter = Builders<UrlEntityDal>.Filter.Eq(u => u.Id, entityFound.Id);
             entityFound.HashedPath = entity.HashedPath;
+            entityFound.WasRotated = true;
             var result = await _collection.ReplaceOneAsync(filter, entityFound);
         }
         else

@@ -9,4 +9,6 @@ public class UrlEntityDal : UrlEntity
     [BsonId]
     [BsonRepresentation(BsonType.ObjectId)]
     public string Id { get; set; }
+
+    public bool WasRotated { get; set; } = false;
 }
