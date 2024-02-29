@@ -9,6 +9,8 @@ builder.Services.AddTransient<IUrlManager, UrlManager>();
 MongoDbSettings mongoDbSettings = builder.Configuration.GetSection("MongoDbSettings").Get<MongoDbSettings>();
 builder.Services.AddMongoDb(mongoDbSettings);
 
+//ToDiscuss: Id add listener which is responsible for db writing
+// And redis added cache to service for get operations
 
 var app = builder.Build();
 
