@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 using URLess.Config;
 using URLess.Core.Managers;
-using URLess.DAL;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddTransient<IUrlManager, UrlManager>();

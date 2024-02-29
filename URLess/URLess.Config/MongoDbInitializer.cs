@@ -4,7 +4,6 @@ using URLess.Domain;
 
 namespace URLess.Config;
 
-
 public static class MongoDbServiceCollectionExtensions
 {
     public static void AddMongoDb(this IServiceCollection services, MongoDbSettings mongoDbSettings)
