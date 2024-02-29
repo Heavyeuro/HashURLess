@@ -1,19 +1,32 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
+using URLess.DAL;
+using URLess.DAL.Repository;
 
 namespace URLess.Core.Managers;
 
 public class UrlManager : IUrlManager
 {
+    private readonly IUrlEntityRepository _urlEntityRepository;
 
-    public Task<string> GetInitialUrl(string shortenedUrl)
+    public UrlManager(IUrlEntityRepository urlEntityRepository)
     {
-        return Task.FromResult(shortenedUrl);
+        _urlEntityRepository = urlEntityRepository;
     }
 
-    public Task<string> GetShortenedPath(string fullUrl)
+    public async Task<string> GetInitialUrl(string shortenedUrl)
     {
-        return Task.FromResult(CalculateSHA1Base64(fullUrl));
+        return await _urlEntityRepository.GetByHashedPathAsync(shortenedUrl);
+    }
+
+    public async Task<string> GetShortenedPath(string fullUrl)
+    {
+        var shortenedPath = CalculateSHA1Base64(fullUrl);
+
+        var urlEntity = new Domain.UrlEntity { InitialUrl = fullUrl, HashedPath = shortenedPath };
+        await _urlEntityRepository.UpsertByInitialUrlAsync(urlEntity);
+
+        return shortenedPath;
     }
 
     private static string CalculateSHA1Base64(string input)

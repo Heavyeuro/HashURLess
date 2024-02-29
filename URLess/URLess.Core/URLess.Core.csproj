@@ -6,4 +6,8 @@
 	  <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\URLess.DAL\URLess.DAL.csproj" />
+  </ItemGroup>
+
 </Project>

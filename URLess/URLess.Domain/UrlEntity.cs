@@ -2,6 +2,6 @@
 
 public class UrlEntity
 {
-    string InitialUrl { get; set; }
-    string HashedPath { get; set; }
+    public string InitialUrl { get; set; }
+    public string HashedPath { get; set; }
 }

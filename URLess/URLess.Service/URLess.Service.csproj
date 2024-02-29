@@ -12,7 +12,9 @@
      </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\URLess.Config\URLess.Config.csproj" />
       <ProjectReference Include="..\URLess.Core\URLess.Core.csproj" />
+      <ProjectReference Include="..\URLess.DAL\URLess.DAL.csproj" />
     </ItemGroup>
 
 </Project>

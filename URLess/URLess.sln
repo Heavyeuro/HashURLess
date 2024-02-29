@@ -15,6 +15,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{DD0003E8
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "URLess.Domain", "URLess.Domain\URLess.Domain.csproj", "{D875DC21-2084-4B3B-BEA2-7DBF7EBBD7DE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "URLess.DAL", "URLess.DAL\URLess.DAL.csproj", "{337ECB7C-8A04-4ACF-8CB4-F4BDCEB27215}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "URLess.Config", "URLess.Config\URLess.Config.csproj", "{EF6C45F1-33F1-4182-BFC0-0D7D9C07D899}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +45,14 @@ Global
 		{D875DC21-2084-4B3B-BEA2-7DBF7EBBD7DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D875DC21-2084-4B3B-BEA2-7DBF7EBBD7DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D875DC21-2084-4B3B-BEA2-7DBF7EBBD7DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{337ECB7C-8A04-4ACF-8CB4-F4BDCEB27215}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{337ECB7C-8A04-4ACF-8CB4-F4BDCEB27215}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{337ECB7C-8A04-4ACF-8CB4-F4BDCEB27215}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{337ECB7C-8A04-4ACF-8CB4-F4BDCEB27215}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF6C45F1-33F1-4182-BFC0-0D7D9C07D899}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF6C45F1-33F1-4182-BFC0-0D7D9C07D899}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF6C45F1-33F1-4182-BFC0-0D7D9C07D899}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF6C45F1-33F1-4182-BFC0-0D7D9C07D899}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

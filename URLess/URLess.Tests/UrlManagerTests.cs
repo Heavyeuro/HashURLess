@@ -1,27 +1,48 @@
 ﻿using NUnit.Framework;
+using Moq;
 using URLess.Core.Managers;
+using URLess.DAL.Repository;
 
 namespace URLess.Tests;
 
+[TestFixture]
 public class UrlManagerTests
 {
     [Test]
-    public async Task GetShortenedUrl_ValidInput_ReturnsShortenedUrl()
+    public async Task GetInitialUrl_Returns_InitialUrl_For_ShortenedUrl()
     {
         // Arrange
-        var inputUrl = "https://example.com";
-        var expectedShortenedUrl = "L7skyw";
-        var expectedShortenedUrlLength = 6;
-        // This is a mocked shortened URL based on SHA1 hash
-
-        var urlManager = new UrlManager();
+        var urlEntityRepositoryMock = new Mock<IUrlEntityRepository>();
+        string expectedInitialUrl = "https://example.com";
+        urlEntityRepositoryMock.Setup(repo => repo.GetByHashedPathAsync("shortenedUrl"))
+            .ReturnsAsync(expectedInitialUrl);
+        var urlManager = new UrlManager(urlEntityRepositoryMock.Object);
 
         // Act
-        var result = await urlManager.GetShortenedPath(inputUrl);
+        string actualInitialUrl = await urlManager.GetInitialUrl("shortenedUrl");
 
         // Assert
-        Assert.IsFalse(string.IsNullOrEmpty(result));
-        Assert.AreEqual(expectedShortenedUrl, result);
-        Assert.AreEqual(expectedShortenedUrlLength, result.Length);
+        Assert.AreEqual(expectedInitialUrl, actualInitialUrl);
+    }
+
+    [Test]
+    public async Task GetShortenedPath_Calculates_ShortenedPath_And_Upserts_UrlEntity()
+    {
+        // Arrange
+        var urlEntityRepositoryMock = new Mock<IUrlEntityRepository>();
+        string fullUrl = "https://example.com";
+        string expectedShortenedPath = "calculatedShortenedPath";
+        urlEntityRepositoryMock.Setup(repo => repo.UpsertByInitialUrlAsync(It.IsAny<Domain.UrlEntity>()))
+            .Returns(Task.CompletedTask);
+        var urlManager = new UrlManager(urlEntityRepositoryMock.Object);
+
+        // Act
+        string actualShortenedPath = await urlManager.GetShortenedPath(fullUrl);
+
+        // Assert
+        Assert.AreEqual(expectedShortenedPath, actualShortenedPath);
+        urlEntityRepositoryMock.Verify(repo => repo.UpsertByInitialUrlAsync(
+            It.Is<Domain.UrlEntity>(entity => entity.InitialUrl == fullUrl && entity.HashedPath == expectedShortenedPath)),
+            Times.Once);
     }
 }
